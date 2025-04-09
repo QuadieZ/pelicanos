@@ -1,0 +1,26 @@
+.turbo
+
+# Node.js
+node_modules/
+.env
+.next/
+.vercel/
+
+# Python
+venv/
+mlflow-venv
+__pycache__/
+*.pyc
+.env
+
+# Airflow
+airflow.db
+logs/
+
+# Docker
+*.log
+
+# General
+.DS_Store
+.vscode/
+.idea/
