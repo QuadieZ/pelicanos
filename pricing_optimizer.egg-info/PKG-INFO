@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: pricing-optimizer
+Version: 0.1.0
+Summary: Pricing optimization project
+Requires-Python: >=3.8

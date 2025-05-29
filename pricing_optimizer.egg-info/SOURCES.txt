@@ -1,0 +1,6 @@
+README.md
+pyproject.toml
+pricing_optimizer.egg-info/PKG-INFO
+pricing_optimizer.egg-info/SOURCES.txt
+pricing_optimizer.egg-info/dependency_links.txt
+pricing_optimizer.egg-info/top_level.txt
