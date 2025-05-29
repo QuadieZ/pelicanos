@@ -15,6 +15,7 @@ WORKDIR /app
 ENV PYTHONPATH=/app
 
 COPY --from=builder /usr/local/lib/python3.8/site-packages/ /usr/local/lib/python3.8/site-packages/
+COPY --from=builder /usr/local/bin/uvicorn /usr/local/bin/uvicorn
 COPY apps/ai-server /app/apps/ai_server
 
 RUN useradd -m appuser && chown -R appuser:appuser /app
