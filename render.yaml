@@ -1,11 +1,14 @@
 services:
   - type: web
     name: pricing-optimizer-ai
-    env: docker
-    dockerfilePath: ./infra/compose/ai-server.prod.Dockerfile
+    env: python
+    buildCommand: cd apps/ai-server && pip install -r requirements.txt
+    startCommand: cd apps/ai-server && uvicorn main:app --host 0.0.0.0 --port $PORT
     plan: free
     healthCheckPath: /docs
     envVars:
       - key: ENVIRONMENT
         value: production
+      - key: PORT
+        value: 8000
     autoDeploy: true
