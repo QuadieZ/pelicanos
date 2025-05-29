@@ -24,3 +24,5 @@ logs/
 .DS_Store
 .vscode/
 .idea/
+
+packages/models/dataset/processed/
