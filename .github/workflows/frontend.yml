@@ -23,25 +23,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: "npm"
-          cache-dependency-path: "apps/frontend/package-lock.json"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
 
       - name: Install dependencies
-        run: |
-          npm install
-          cd apps/frontend && npm install
+        run: yarn install --frozen-lockfile
 
       - name: Run linting
-        run: |
-          cd apps/frontend && npm run lint
-
-      - name: Run tests
-        run: |
-          cd apps/frontend && npm run test
+        run: yarn workspace frontend lint
 
       - name: Build
-        run: |
-          cd apps/frontend && npm run build
+        run: yarn workspace frontend build
+        env:
+          VITE_ENV: production
+
   deploy:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
@@ -54,14 +49,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install --frozen-lockfile
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+      - name: Build for production
+        run: yarn workspace frontend build
+        env:
+          VITE_ENV: production
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./apps/frontend
+          name: frontend-build
+          path: apps/frontend/dist
+          retention-days: 7
