@@ -4,15 +4,17 @@ on:
   push:
     branches: [main, dev]
     paths:
+      - "apps/frontend/**"
       - "apps/ai-server/**"
       - "packages/**"
-      - ".github/workflows/ai-server.yml"
+      - ".github/workflows/**"
   pull_request:
     branches: [main, dev]
     paths:
+      - "apps/frontend/**"
       - "apps/ai-server/**"
       - "packages/**"
-      - ".github/workflows/ai-server.yml"
+      - ".github/workflows/**"
 
 jobs:
   test:
@@ -34,6 +36,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-cov black isort mypy
+
+      - name: Format code
+        run: |
+          cd apps/ai-server
+          black .
+          isort .
 
       - name: Run linting
         run: |
