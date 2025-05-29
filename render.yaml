@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pricing-optimizer-ai
+    env: docker
+    dockerfilePath: ./infra/compose/ai-server.prod.Dockerfile
+    plan: free
+    healthCheckPath: /docs
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+    autoDeploy: true

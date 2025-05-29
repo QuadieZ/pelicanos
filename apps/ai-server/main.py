@@ -1,4 +1,3 @@
-# apps/ai-server/main.py
 from fastapi import FastAPI
 
 app = FastAPI()
