@@ -25,13 +25,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
         run: |
-          yarn install --frozen-lockfile
-          cd apps/frontend && yarn install --frozen-lockfile
+          yarn install --immutable
+          cd apps/frontend && yarn install --immutable
 
       - name: Run linting
         run: cd apps/frontend && yarn lint
@@ -53,13 +54,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: "yarn"
-          cache-dependency-path: "yarn.lock"
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
         run: |
-          yarn install --frozen-lockfile
-          cd apps/frontend && yarn install --frozen-lockfile
+          yarn install --immutable
+          cd apps/frontend && yarn install --immutable
 
       - name: Build for production
         run: cd apps/frontend && yarn build
