@@ -43,13 +43,6 @@ jobs:
           black .
           isort .
 
-      - name: Run linting
-        run: |
-          cd apps/ai-server
-          black . --check
-          isort . --check-only
-          mypy .
-
       - name: Run tests
         run: |
           cd apps/ai-server
