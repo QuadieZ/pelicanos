@@ -18,7 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy and rename project folder
 COPY apps/ai-server /app/apps/ai_server
-COPY packages/models/model/ /app/packages/models/model/
+COPY packages/models/model.pkl /app/packages/models/model.pkl
+COPY packages/models/preprocessor_numpy1.pkl /app/packages/models/preprocessor_numpy1.pkl
 
 # Create user and assign permissions
 RUN useradd -m appuser && chown -R appuser:appuser /app
