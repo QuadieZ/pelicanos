@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/testpy456/pelicanos/packages/models/mlruns/623168820079744477/5251a47f1c4e46afbcfae3c851e4948d/artifacts
+end_time: 1748582834780
+entry_point_name: ''
+experiment_id: '623168820079744477'
+lifecycle_stage: active
+run_id: 5251a47f1c4e46afbcfae3c851e4948d
+run_name: CatBoost_Model
+run_uuid: 5251a47f1c4e46afbcfae3c851e4948d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748582663984
+status: 3
+tags: []
+user_id: M S I

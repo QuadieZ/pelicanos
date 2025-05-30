@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/testpy456/pelicanos/packages/models/mlruns/623168820079744477/19ba0a2e904041d2af7d74f8e1d78584/artifacts
+end_time: 1748583108442
+entry_point_name: ''
+experiment_id: '623168820079744477'
+lifecycle_stage: active
+run_id: 19ba0a2e904041d2af7d74f8e1d78584
+run_name: LightGBM_Model
+run_uuid: 19ba0a2e904041d2af7d74f8e1d78584
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748583048401
+status: 3
+tags: []
+user_id: M S I

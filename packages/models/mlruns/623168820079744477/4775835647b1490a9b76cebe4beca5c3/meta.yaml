@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/testpy456/pelicanos/packages/models/mlruns/623168820079744477/4775835647b1490a9b76cebe4beca5c3/artifacts
+end_time: 1748583600407
+entry_point_name: ''
+experiment_id: '623168820079744477'
+lifecycle_stage: active
+run_id: 4775835647b1490a9b76cebe4beca5c3
+run_name: XGBoost_Model
+run_uuid: 4775835647b1490a9b76cebe4beca5c3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748583444558
+status: 3
+tags: []
+user_id: M S I
