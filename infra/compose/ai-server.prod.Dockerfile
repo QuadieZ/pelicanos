@@ -15,8 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY apps/ai-server/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN python -c "import numpy._core; print('NumPy _core is OK')"
-
 # Copy and rename project folder
 COPY apps/ai-server /app/apps/ai_server
 COPY packages/models/model/ /app/packages/models/model/
