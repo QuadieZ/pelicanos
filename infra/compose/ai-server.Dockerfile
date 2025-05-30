@@ -10,8 +10,9 @@ COPY apps/ai-server/requirements.txt .
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY apps/ai-server/ .
+# Copy the application code and model files
+COPY apps/ai-server/ /app/apps/ai-server/
+COPY packages/models/model/ /app/packages/models/model/
 
 # Expose the port the app runs on
 EXPOSE 8000

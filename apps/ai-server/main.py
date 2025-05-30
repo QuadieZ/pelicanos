@@ -2,10 +2,19 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
+import os
 
 app = FastAPI()
-model = joblib.load("../../packages/models/model/lightgbm_model.pkl")
-preprocessor = joblib.load("../../packages/models/model/preprocessor.pkl")
+
+# Get the absolute path to the model file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(current_dir, "..", "..", "packages", "models", "model", "lightgbm_model.pkl")
+preprocessor_path = os.path.join(current_dir, "..", "..", "packages", "models", "model", "preprocessor.pkl")
+
+# Load the model and preprocessor
+model = joblib.load(model_path)
+preprocessor = joblib.load(preprocessor_path)
+
 class PredictionInput(BaseModel):
     distribution_channel_code: str
     channel_id: str
