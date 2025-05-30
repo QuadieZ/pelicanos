@@ -2,6 +2,7 @@ import {
   Button,
   createListCollection,
   Heading,
+  HStack,
   Portal,
   Select,
   Slider,
@@ -15,15 +16,15 @@ interface Product {
   product_id: string;
   brand_name: string;
   shoe_product: string;
-  color_en: string;
-  product_group_en: string;
+  color: string;
+  product_group: string;
   listing_price: number;
 }
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [priceRange, setPriceRange] = useState([0, 1000000]);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [priceRange, setPriceRange] = useState([100, 5000]);
   const [price, setPrice] = useState(0);
   const [prediction, setPrediction] = useState<{
     price: number;
@@ -32,20 +33,20 @@ function App() {
   } | null>(null);
 
   useEffect(() => {
-    fetch("/top_100_productmaster_translated.json")
+    fetch("/50_products.json")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
-        setSelectedProduct(data[0]);
+        setSelectedProduct(data[0].product_id);
         setPrice(data[0].listing_price);
       });
   }, []);
 
   const productsCollection = createListCollection({
     items: products.map((p: Product) => ({
-      label: `${p.brand_name} - ${p.shoe_product} - ${p.color_en}`,
+      label: `${p.brand_name} - ${p.shoe_product} - ${p.color ?? ""}`,
       value: p.product_id,
-      category: p.product_group_en,
+      category: p.product_group,
     })),
   });
 
@@ -56,16 +57,14 @@ function App() {
   const handleProductSelect = (details: { value: string[] }) => {
     const product = products.find((p) => p.product_id === details.value[0]);
     if (product) {
-      setSelectedProduct(product);
+      setSelectedProduct(product.product_id);
       setPrice(product.listing_price);
     }
   };
 
-  const handlePriceRangeChange = (event: React.FormEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLInputElement;
-    const values = [parseInt(target.value)];
+  const handlePriceRangeChange = (details: { value: number[] }) => {
+    const values = details.value;
     setPriceRange(values);
-    setPrice(values[0]);
   };
 
   const handlePredict = () => {
@@ -117,12 +116,19 @@ function App() {
 
       <Slider.Root
         maxW="md"
+        min={100}
+        max={5000}
+        step={50}
         value={priceRange}
-        onChange={handlePriceRangeChange}
-        minStepsBetweenThumbs={8}
+        onValueChange={handlePriceRangeChange}
         colorPalette="gray"
       >
-        <Slider.Label>Select a range of prices</Slider.Label>
+        <HStack justify="space-between">
+          <Slider.Label>Select a range of prices</Slider.Label>
+          <Text>
+            {priceRange[0]} - {priceRange[1]}
+          </Text>
+        </HStack>
         <Slider.Control>
           <Slider.Track>
             <Slider.Range />

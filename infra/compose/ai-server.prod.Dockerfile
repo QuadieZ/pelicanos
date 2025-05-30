@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.8-slim
 
 WORKDIR /app
 
@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Python requirements
 COPY apps/ai-server/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
 
 # Copy and rename project folder
 COPY apps/ai-server /app/apps/ai_server

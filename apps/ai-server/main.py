@@ -8,8 +8,8 @@ app = FastAPI()
 
 # Get the absolute path to the model file
 current_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(current_dir, "..", "..", "packages", "models", "model", "lightgbm_model.pkl")
-preprocessor_path = os.path.join(current_dir, "..", "..", "packages", "models", "model", "preprocessor.pkl")
+model_path = os.path.join(current_dir, "..", "..", "packages", "models", "model.pkl")
+preprocessor_path = os.path.join(current_dir, "..", "..", "packages", "models", "preprocessor_numpy1.pkl")
 
 # Load the model and preprocessor
 model = joblib.load(model_path)
