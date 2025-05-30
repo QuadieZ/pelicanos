@@ -6,9 +6,11 @@ import {
   Portal,
   Select,
   Slider,
+  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { groupBy } from "es-toolkit";
 import { useEffect, useState } from "react";
 
@@ -25,7 +27,7 @@ function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState([100, 5000]);
-  const [price, setPrice] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [prediction, setPrediction] = useState<{
     price: number;
     demand: number;
@@ -36,9 +38,10 @@ function App() {
     fetch("/50_products.json")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
+        setProducts([
+          ...new Map(data.map((item) => [item.product_id, item])).values(),
+        ] as Product[]);
         setSelectedProduct(data[0].product_id);
-        setPrice(data[0].listing_price);
       });
   }, []);
 
@@ -58,7 +61,6 @@ function App() {
     const product = products.find((p) => p.product_id === details.value[0]);
     if (product) {
       setSelectedProduct(product.product_id);
-      setPrice(product.listing_price);
     }
   };
 
@@ -69,11 +71,15 @@ function App() {
 
   const handlePredict = () => {
     if (selectedProduct) {
-      // TODO: Implement actual prediction logic
-      setPrediction({
-        price: price,
-        demand: Math.floor(Math.random() * 1000), // Placeholder
-        revenue: price * Math.floor(Math.random() * 1000), // Placeholder
+      setLoading(true);
+      axios.post("http://localhost:8000/predict-range", {
+        product_id: selectedProduct,
+        start_price: priceRange[0],
+        end_price: priceRange[1],
+      }).then((res) => {
+        setPrediction(res.data);
+      }).finally(() => {
+        setLoading(false);
       });
     }
   };
@@ -140,13 +146,13 @@ function App() {
       <Button colorPalette="orange" onClick={handlePredict}>
         Predict Price
       </Button>
-
+      {loading && <Spinner />}
       {prediction && (
         <Stack>
           <Heading as="h2">Prediction</Heading>
-          <Text>Optimal Price: {prediction.price} units</Text>
+          <Text>Optimal Price: {prediction.price} ฿</Text>
           <Text>Demand: {prediction.demand} units</Text>
-          <Text>Revenue: {prediction.revenue}</Text>
+          <Text>Revenue: {prediction.revenue} ฿</Text>
         </Stack>
       )}
     </Stack>
