@@ -4,7 +4,14 @@ WORKDIR /app
 
 # Install OS-level build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    libatlas-base-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    gfortran \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN python -c "import numpy._core; print('NumPy _core is OK')"
 
 # Install Python requirements
 COPY apps/ai-server/requirements.txt .
